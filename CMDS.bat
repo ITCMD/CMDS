@@ -151,7 +151,7 @@ pause
 echo.
 echo Example:
 echo.
-echo    CMDS /CS My Window
+echo    CMDS /TS My Window
 echo.
 echo     The Above Command Will set the errorlevel to the PID of the cmd instance
 echo     with the title "My Window" (set with the title command). If the instance
