@@ -139,7 +139,7 @@ echo  /W         Refreshes only when a new cmd instance starts (new PID).
 echo             Note: This will not refresh if an old window closes
 echo                   and a new one opens at the same time.
 echo  /TS        Use within a batch file to search for a Window Title
-echo  String     The Window Title to search for with /TS  
+echo  String     The Window Title to search for with /TS 
 echo.
 echo.
 echo  with /TS the errorlevel will be set to 1 if the title was not found.
@@ -193,7 +193,7 @@ setlocal EnabledelayedExpansion
 set num=0
 :tsloop
 set /a num+=1
-if "%2"=="" exit /b 2
+if "%~2"=="" exit /b 2
 if "!Title%num%!"=="Window Title: %~2" goto isrite
 if %num%==%totalnum% goto nonets
 goto tsloop
