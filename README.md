@@ -3,13 +3,13 @@ Tool to view Command prompt files that are running (hidden or not) by their titl
 works in color
 works with batch files
 # HELP FILE:
-![Help Screenshot](https://s19.postimg.cc/yj11dx4eb/screenshot_16.png)
+![Help Screenshot](https://s19.postimg.cc/ccg6lvtzn/screenshot_16.png)
 
 Pure text of help file:
 
 ```CMDS Command Prompt Window Lister by IT Command
 
-CMDS [/S] [/P] [/L] [/W] [/TS String]
+CMDS [/S] [/P] [/L] [/W] [/TS "String"]
 
  /S         Displays the simple but high information version (fast)
  /P         Pauses Before Exiting. Usefull if using from Run.
@@ -19,8 +19,6 @@ CMDS [/S] [/P] [/L] [/W] [/TS String]
                   and a new one opens at the same time.
  /TS        Use within a batch file to search for a Window Title
  String     The Window Title to search for with /TS
-            Note: DO NOT USE QUOTES WITH String
-            Note: You can have up to 8 spaces in the title.
 
 
  with /TS the errorlevel will be set to 1 if the title was not found.
@@ -30,7 +28,7 @@ Press any key to continue . . .
 
 Example:
 
-   CMDS /CS My Window
+   CMDS /TS "My Window"
 
     The Above Command Will set the errorlevel to the PID of the cmd instance
     with the title "My Window" (set with the title command). If the instance
