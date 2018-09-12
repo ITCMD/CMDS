@@ -3,7 +3,7 @@ Tool to view Command prompt files that are running (hidden or not) by their titl
 works in color
 works with batch files
 # HELP FILE:
-![Help Screenshot](https://s19.postimg.cc/ccg6lvtzn/screenshot_16.png)
+![Help Screenshot](https://s19.postimg.cc/wl3k72iur/screenshot_16.png)
 
 Pure text of help file:
 
