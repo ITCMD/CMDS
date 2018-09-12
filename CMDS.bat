@@ -130,7 +130,7 @@ goto displayl1
 call :Colorecho21 0f "CMDS Command Prompt Window Lister by IT Command"
 echo.
 echo.
-echo CMDS [/S] [/P] [/L] [/W] [/TS "String"]
+echo CMDS [/S] [/P] [/L] [/W] [/TS String]
 echo.
 echo  /S         Displays the simple but high information version (fast)
 echo  /P         Pauses Before Exiting. Usefull if using from Run.
