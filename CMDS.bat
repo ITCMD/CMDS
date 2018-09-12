@@ -130,7 +130,7 @@ goto displayl1
 call :Colorecho21 0f "CMDS Command Prompt Window Lister by IT Command"
 echo.
 echo.
-echo CMDS [/S] [/P] [/L] [/W] [/TS String]
+echo CMDS [/S] [/P] [/L] [/W] [/TS "String"]
 echo.
 echo  /S         Displays the simple but high information version (fast)
 echo  /P         Pauses Before Exiting. Usefull if using from Run.
@@ -139,9 +139,7 @@ echo  /W         Refreshes only when a new cmd instance starts (new PID).
 echo             Note: This will not refresh if an old window closes
 echo                   and a new one opens at the same time.
 echo  /TS        Use within a batch file to search for a Window Title
-echo  String     The Window Title to search for with /TS 
-echo             Note: DO NOT USE QUOTES WITH String!! 
-echo             Note: You can have up to 8 spaces in the title.
+echo  String     The Window Title to search for with /TS  
 echo.
 echo.
 echo  with /TS the errorlevel will be set to 1 if the title was not found.
@@ -151,7 +149,7 @@ pause
 echo.
 echo Example:
 echo.
-echo    CMDS /TS My Window
+echo    CMDS /TS "My Window"
 echo.
 echo     The Above Command Will set the errorlevel to the PID of the cmd instance
 echo     with the title "My Window" (set with the title command). If the instance
@@ -196,14 +194,7 @@ set num=0
 :tsloop
 set /a num+=1
 if "%2"=="" exit /b 2
-if "%3"=="" if "!Title%num%!"=="Window Title: %2" goto isrite
-if "%4"=="" if "!Title%num%!"=="Window Title: %2 %3" goto isrite
-if "%5"=="" if "!Title%num%!"=="Window Title: %2 %3 %4" goto isrite
-if "%6"=="" if "!Title%num%!"=="Window Title: %2 %3 %4 %5" goto isrite
-if "%7"=="" if "!Title%num%!"=="Window Title: %2 %3 %4 %5 %6" goto isrite
-if "%8"=="" if "!Title%num%!"=="Window Title: %2 %3 %4 %5 %6 %7" goto isrite
-if "%9"=="" if "!Title%num%!"=="Window Title: %2 %3 %4 %5 %6 %7 %8" goto isrite
-if not "%9"=="" if "!Title%num%!"=="Window Title: %2 %3 %4 %5 %6 %7 %8 %9" goto isrite
+if "!Title%num%!"=="Window Title: %~2" goto isrite
 if %num%==%totalnum% goto nonets
 goto tsloop
 :isrite
