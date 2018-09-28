@@ -9,12 +9,8 @@ rem Prepare a file "X" with only one dot
 <nul > X set /p ".=."
 
 
-if "%1"=="/TS" goto ts
-if "%1"=="/ts" goto ts
-if "%1"=="/Ts" goto ts
-if "%1"=="/tS" goto ts
-if "%1"=="/s" tasklist /fi "imagename eq cmd.exe" /fo list /v & exit /b
-if "%1"=="/S" tasklist /fi "imagename eq cmd.exe" /fo list /v & exit /b
+if /i "%1"=="/TS" goto ts
+if /i "%1"=="/S" tasklist /fi "imagename eq cmd.exe" /fo list /v & exit /b
 if "%1"=="/?" goto help
 goto nxt
 :nxt
