@@ -9,12 +9,13 @@ Pure text of help file:
 
 ```CMDS Command Prompt Window Lister by IT Command
 
-CMDS [/S] [/P] [/L] [/W] [/TS "String"]
+CMDS [/S] [/P] [/L] [/W] [/V] [/TS "String"]
 
  /S         Displays the simple but high information version (fast)
  /P         Pauses Before Exiting. Usefull if using from Run.
  /L         Pauses and refreshes on press of key. Use CTRL+C to quit.
  /W         Refreshes only when a new cmd instance starts (new PID).
+ /v         Ignores unnamed windows.
             Note: This will not refresh if an old window closes
                   and a new one opens at the same time.
  /TS        Use within a batch file to search for a Window Title
