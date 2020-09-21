@@ -197,7 +197,7 @@ echo     if the Syntax was incorrect, errorlevel will be set to 2.
 echo.
 echo.
 call :Colorecho21 07 " Created by Lucas Elliott with IT Command"
-call :Colorecho21 0b "  www.ITCommand.tech"
+call :Colorecho21 0b "  www.ITCommand.net"
 echo.
 echo.
 goto exit
