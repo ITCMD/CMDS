@@ -22,6 +22,8 @@ if "%~1"=="-help" goto help
 if /i "%~1"=="/S" tasklist /fi "imagename eq cmd.exe" /fo list /v & exit /b
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/TS" >nul 2>nul
 if %errorlevel%==0 goto loopforts
+echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/TK" >nul 2>nul
+if %errorlevel%==0 goto loopfortk
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/s" >nul 2>nul
 if %errorlevel%==0 set _silent=true
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/p" >nul 2>nul
@@ -30,9 +32,102 @@ echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/w" >nul 2>nul
 if %errorlevel%==0 set _loop=true
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/v" >nul 2>nul
 if %errorlevel%==0 set _visible=true
+echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/g" >nul 2>nul
+if %errorlevel%==0 goto get
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/l" >nul 2>nul
 if %errorlevel%==0 set _pauseloop=true & cls
 goto nxt
+
+
+:get
+if /i "%~1"=="/g" (
+	set _gv=%~2
+) Else (
+	shift
+	goto get
+)
+if "%_gv%"=="" (
+	echo Error: Syntax incorrect. Provide a value for /g.
+	exit /b 2
+)
+
+if "%_visible%"=="true" (
+	echo Error: Cannot use with /v.
+	exit /b 2
+)
+
+:: ===================== PID ========================
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "PID:" >System
+for /F "tokens=*" %%A in  (System) do  (
+set /a num+=1
+set PID!num!=%%A
+)
+if "%_loop%"=="true" goto lloop
+set num=0
+
+if "!PID%_gv%!"=="" (
+	echo Error: Entry %_gv% not found.
+	exit /b 1
+)
+set output=!PID%_gv%: =!
+set output=%output:~4,100%
+echo | set /p="%output%"|clip
+exit /b 0
+
+
+
+
+
+:loopfortk
+if /i "%~1"=="/TK" goto endfortkloop
+if "%~1"=="" echo Error. Could not find tk. & exit /b
+shift
+goto loopfortk
+:endfortkloop
+shift
+set _ts=%~1
+goto taskkill
+
+
+:taskkill
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "Window Title:" >System
+for /F "tokens=*" %%A in  (System) do  (
+set /a num+=1
+set Title!num!=%%A
+set totalnum=!num!
+)
+:: ===================== Memory =======================
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "Mem Usage:" >System
+for /F "tokens=*" %%A in  (System) do  (
+set /a num+=1
+set Mem!num!=%%A
+)
+
+:: ===================== PID ========================
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "PID:" >System
+for /F "tokens=*" %%A in  (System) do  (
+set /a num+=1
+set PID!num!=%%A
+)
+setlocal EnabledelayedExpansion
+set num=0
+:tkloop
+set /a num+=1
+if "!Title%num%!"=="Window Title: %_ts%" goto isritetk
+if %num%==%totalnum% goto nonetk
+goto tkloop
+:isritetk
+::window was found
+set str=!PID%num%!
+set "result=%str::=" & set "result=%"
+set result=%result: =%
+popd
+taskkill /f /im %result%
+exit /b
 
 :loopforts
 if /i "%~1"=="/TS" goto endfortsloop
@@ -168,7 +263,7 @@ goto displayl1
 call :Colorecho21 0f "CMDS Command Prompt Window Lister by IT Command"
 echo.
 echo.
-echo CMDS [/S] [/P] [/L] [/W] [/V] [/TS String]
+echo CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/TK String] [/TS String]
 echo.
 echo  /S         Displays the simple but high information version (fast)
 echo  /P         Pauses Before Exiting. Usefull if using from Run.
@@ -176,9 +271,15 @@ echo  /L         Pauses and refreshes on press of key. Use CTRL+C to quit.
 echo  /W         Refreshes only when a new cmd instance starts (new PID).
 echo             Note: This will not refresh if an old window closes
 echo                   and a new one opens at the same time.
+echo  /G         For use when listing entries. Copies an entry from a
+echo             displayed list to clipboard.
+echo  /K         For use when listing entries. Kills an entry from
+echo             displayed list.
+echo  Num        The number of the entry to copy to clipboard or kill.
 echo  /V         Ignores unnamed windows.
-echo  /TS        Use within a batch file to search for a Window Title
-echo  String     The Window Title to search for with /TS 
+echo  /TS        Use within a batch file to search for a Window Title.
+echo  /TK        Use within a batch file to kill a matching Window Title.
+echo  String     The Window Title to search for with /TS or /TK
 echo.
 echo.
 echo  with /TS the errorlevel will be set to 1 if the title was not found.
