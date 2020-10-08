@@ -34,9 +34,51 @@ echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/v" >nul 2>nul
 if %errorlevel%==0 set _visible=true
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/g" >nul 2>nul
 if %errorlevel%==0 goto get
+echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/k" >nul 2>nul
+if %errorlevel%==0 goto lkill
 echo "{%~1} {%~2} {%~3} {%~4} {%~5} {%~6} {%~7}" | find /i "/l" >nul 2>nul
 if %errorlevel%==0 set _pauseloop=true & cls
 goto nxt
+
+
+
+:lkill
+if /i "%~1"=="/k" (
+	set _gv=%~2
+) Else (
+	shift
+	goto lkill
+)
+if "%_gv%"=="" (
+	echo Error: Syntax incorrect. Provide a value for /k.
+	exit /b 2
+)
+
+if "%_visible%"=="true" (
+	echo Error: Cannot use with /v.
+	exit /b 2
+)
+
+:: ===================== PID ========================
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "PID:" >System
+for /F "tokens=*" %%A in  (System) do  (
+set /a num+=1
+set PID!num!=%%A
+)
+if "%_loop%"=="true" goto lloop
+set num=0
+
+if "!PID%_gv%!"=="" (
+	echo Error: Entry %_gv% not found.
+	exit /b 1
+)
+set output=!PID%_gv%: =!
+set output=%output:~4,100%
+taskkill /f /pid "%output%"
+exit /b 0
+
+
 
 
 :get
@@ -263,7 +305,7 @@ goto displayl1
 call :Colorecho21 0f "CMDS Command Prompt Window Lister by IT Command"
 echo.
 echo.
-echo CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/TK String] [/TS String]
+echo CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/K Num] [/TK String] [/TS String]
 echo.
 echo  /S         Displays the simple but high information version (fast)
 echo  /P         Pauses Before Exiting. Usefull if using from Run.
