@@ -5,7 +5,7 @@ works with batch files
 # HELP FILE:
 ```CMDS Command Prompt Window Lister by IT Command
 
-CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/TK String] [/TS String]
+CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/K Num] [/TK String] [/TS String]
 
  /S         Displays the simple but high information version (fast)
  /P         Pauses Before Exiting. Usefull if using from Run.
