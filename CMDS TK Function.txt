@@ -1,0 +1,52 @@
+@echo off
+echo killing with title of "TESTING123"
+call :CMDSTK "TESTING123"
+echo back
+pause
+exit /b
+
+
+
+
+:CMDSTK
+:: Put this in your batch file to call it and kill a cmd.exe window with a matching title.
+:: Usage: 
+:: call :cmdstk "Title Of CMD Window to Kill"
+:: if no cmd.exe instance has that title, it will return errorlevel 1
+:: Do not change the title of the function without also changing the call function surrounded by REM or the program will fail if a cmd.exe window is opened between scans.
+setlocal EnableDelayedExpansion
+pushd "%TEMP%"
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "Window Title:" >System
+for /F "tokens=*" %%A in (System) do  (
+set /a num+=1
+set Title!num!=%%A
+set totalnum=!num!
+)
+set num=0
+tasklist /fi "imagename eq cmd.exe" /fo list /v | find /I "PID:" >System
+for /F "tokens=*" %%A in (System) do  (
+set /a num+=1
+set PID!num!=%%A
+)
+if not %num%==%totalnum% (
+	REM -----------------------------------------
+	REM IF you change the title, change this too.
+	call :CMDSTK %~1
+	REM -----------------------------------------
+)
+set num=0
+:tkloop
+set /a num+=1
+if "!Title%num%!"=="Window Title: %~1" goto isritetk
+if %num%==%totalnum% endlocal & exit /b 1
+goto tkloop
+:isritetk
+::window was found
+set str=!PID%num%!
+set "result=%str::=" & set "result=%"
+set result=%result: =%
+popd
+taskkill /f /PID %result% >nul
+endlocal
+exit /b
