@@ -65,13 +65,21 @@ goto nxt
 
 :version
 cls
-echo Version %cmdsver%.
-echo [90m%verdate%[0m
+echo [=================================================]
+echo [   [96mCMDS[0m - cmd.exe instance manager and toolset   ]
+echo [+++++++++++++++++++++++++++++++++++++++++++++++++]
+echo [   Made by SetLucas (Lucas Elliott) with ITCMD   ]
+echo [  GNU Public license - Please Reference Usage    ]
+echo [=================================================]
+echo.
+echo [90;4mhttps://github.com/ITCMD/CMDS[0m
+echo [96mCMDS Version: %cmdsver%  from  [90m%verdate%[0m.
 echo.
 echo Check for updates?
 choice
 if %errorlevel%==2 exit /b
-for /f "tokens=1,2 delims=#" %%A in ('curl -L https://github.com/ITCMD/CMDS/raw/master/version-number.txt') do (
+echo.
+for /f "tokens=1,2 delims=#" %%A in ('curl -s -L https://github.com/ITCMD/CMDS/raw/master/version-number.txt') do (
 	set curver=%%~A
 	set badver=%%~B
 )
@@ -87,8 +95,8 @@ if defined vercheck (
 	exit /b 1
 )
 if %curver% GTR %cmdsver% (
-	if %curver% LEQ %badver% (
-		echo [93mUpdate Available.[0m
+	if %cmdsver% LEQ %badver% (
+		echo [93mUpdate Available:[0m
 		echo.
 		echo [91mUpdate is urgent.[0m
 		echo This version of CMDS has been deemed unstable.
@@ -96,30 +104,29 @@ if %curver% GTR %cmdsver% (
 		echo download from https://github.com/ITCMD/CMDS
 		exit /b 9
 	) ELSE (
-		echo [92mUpdate Available.[0m
+		echo [92mUpdate Available:[0m Version %curver%
 		echo.
-		echo [32mUpdate is not urgent.[0m.
-		echo New update includes new features and / or bug fixes.
+		echo [32mUpdate is not urgent.[0m
+		echo This update includes new features and / or bug fixes.
 		echo Updating to this version is recommended in non-automated
 		echo circumstances, but is not necessary. View the update at
 		echo https://github.com/ITCMD/CMDS
 		exit /b 8
 	)
 )
-if %curver% LSS %cmdver% (
+if %curver% LSS %cmdsver% (
 	echo [95mVersion Discrepency.[0m
 	echo.
-	echo The version number of CMDS you have is higher
-	echo than the latest version according to the github page.
+	echo The version number of CMDS you have [%cmdsver%] is higher
+	echo than the latest version according to the github page [%curver%].
 	echo Perhaps you have a beta or have disabled updates.
 	echo View the latest official release at: https://github.com/ITCMD/CMDS.
 	exit /b 69
 )
-if %curver%==%cmdver% (
-	echo [92mYou are up to date[0m
+if %curver%==%cmdsver% (
+	echo [92;4mYou are up to date.[0m
 	echo.
-	echo [32mThere are no public updates
-	echo available at this time.[0m
+	echo [32mThere are no public updates available at this time.[0m
 	exit /b 0
 )
 echo ERROR: Unexpected result from server:
