@@ -393,20 +393,22 @@ goto waiting
 call :Colorecho21 0f "CMDS Command Prompt Window Lister by IT Command"
 echo.
 echo.
-echo CMDS [/S] [/P] [/L] [/W] [/V] [/G Num] [/K Num] [/TK String] [/TS String]
+echo CMDS [/S] [/P] [/L] [/W] [/V] [/Ver] [/G Num] [/K Num] [/TK String] [/TS String]
 echo.
 echo  /S         Displays the simple but high information version (fast)
 echo  /P         Pauses Before Exiting. Usefull if using from Run.
 echo  /L         Pauses and refreshes on press of key. Use CTRL+C to quit.
 echo  /W         Refreshes only when a new cmd instance starts (new PID).
-echo             Note: This will not refresh if an old window closes
-echo                   and a new one opens at the same time.
 echo  /G         For use when listing entries. Copies an entry from a
 echo             displayed list to clipboard.
 echo  /K         For use when listing entries. Kills an entry from
 echo             displayed list.
+echo  Note:      /G and /K will pull numbers and PIDs from the previous CMDS
+echo             list through a variable to increase accuracy.
 echo  Num        The number of the entry to copy to clipboard or kill.
 echo  /V         Ignores unnamed windows.
+echo  /Ver       Prints the current version of CMDS and allows you to check
+echo             for an update. /version may also be used.
 echo  /TS        Use within a batch file to search for a Window Title.
 echo  /TK        Use within a batch file to kill a matching Window Title.
 echo  String     The Window Title to search for with /TS or /TK
