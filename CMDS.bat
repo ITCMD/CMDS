@@ -4,6 +4,7 @@ setlocal EnableDelayedExpansion
 Rem Version 23.
 Rem Older versions do not have version numbers.
 Rem made by SetLucas [Lucas Elliott] with IT Command.
+Rem This code is under the GNU Public License Version 3.
 
 set cmdsver=23
 set verdate=Dec 4th 2021
@@ -240,7 +241,6 @@ Rem Correct Instance was found. Separate PID.
 set str=!PID%num%!
 set "result=%str::=" & set "result=%"
 set result=%result: =%
-echo here 3
 Rem Check PID matches title and repeat up to 3 times if not.
 tasklist /fi "PID eq %result%" /fo list /v | find /I "Window Title: %_ts%" >nul 2>nul
 if %errorlevel%==0 goto validatedtk
