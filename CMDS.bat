@@ -356,6 +356,8 @@ rem sets storepid value for /k and /g
 set "storepid=%storepid%%num% %result% "
 rem displays space if short pid and displays title 
 if %result% LSS 10000 call :Colorecho21 0f " "
+if %result% LSS 1000 call :Colorecho21 0f " "
+if %result% LSS 100 call :Colorecho21 0f " "
 call :Colorecho21 0e "!Mem%num%!  "
 echo [92m!Title%num%![0m
 :detstop
