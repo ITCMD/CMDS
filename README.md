@@ -2,6 +2,8 @@
 A cmd.exe instance management tool that allows you to interract with cmd.exe windows knowing only their titles, or via a text-based graphical interface. CMDS provides colorful and clear displays of information. See the usage below.
 
 [CMDS is under the GNU Public License version 3](https://github.com/ITCMD/CMDS/blob/master/License.txt)
+
+![Example of CMDS being run in a cmd.exe window](https://i.imgur.com/dO46IXa.png)
 # Installation
 
 To Install CMDS, head over to the [releases](https://github.com/ITCMD/CMDS/releases) page. You have two options for using CMDS: Using the portable files or the installer.
@@ -14,7 +16,7 @@ To Install CMDS, head over to the [releases](https://github.com/ITCMD/CMDS/relea
 
 ***Note that whether you use the installer or the portable version, CMDS.bat takes up the same amount of storage space (16KB as of version 23).***
 
-## Update 23 - *STABILITY PLUS PLUS*
+## Update 23 - *Stability to the Max!*
 **CMDS has had a complete revamp under the hood, increasing efficiency and GREATLY increasing stability!**
 - /W loop now keeps track of windows individually, monitoring title changes and replaced instances, not just counts.
 - /G and /K get the list from a variable set in the last list, so even if new windows open or close, the PID will still match
@@ -65,5 +67,5 @@ Example:
  Created by Lucas Elliott with IT Command  www.itcommand.net
  ```
 
-# View our Other Programs
-at [programs.itcommand.net](https://programs.itcommand.net)
+<!-- # (Still another comment) # View our Other Programs
+[]: # (This is a comment) Visit the programs website at [programs.itcommand.net](https://programs.itcommand.net) -->
