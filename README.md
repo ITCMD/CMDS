@@ -1,7 +1,18 @@
 # CMDS
-A cmd.exe instance management tool that allows you to interract with cmd.exe windows knowing only their titles, or via a grid.
-works in color.
-works with batch files.
+A cmd.exe instance management tool that allows you to interract with cmd.exe windows knowing only their titles, or via a text-based graphical interface. CMDS provides colorful and clear displays of information. See the usage below.
+
+[CMDS is under the GNU Public License version 3](https://github.com/ITCMD/CMDS/blob/master/License.txt)
+# Installation
+
+To Install CMDS, head over to the [releases](https://github.com/ITCMD/CMDS/releases) page. You have two options for using CMDS: Using the portable files or the installer.
+
+### Recommended Installation For Developers
+- Developers should download the portable CMDS.bat file from the [releases](https://github.com/ITCMD/CMDS/releases) page and package it with their programs.
+
+### Recommended Installation For Users
+- Individual can use the provided installers which will place the file in the system32 folder. This will allow users to use CMDS like it is a default program in windows, running the command from any cmd window or batch file. Users without administrator access (or who do not want to add a file to their system32 directory) may alternatively download CMDS.bat and use it as a portable file by calling it directly.
+
+***Note that whether you use the installer or the portable version, CMDS.bat takes up the same amount of storage space (16KB as of version 23).***
 
 ## Update 23 - *STABILITY PLUS PLUS*
 **CMDS has had a complete revamp under the hood, increasing efficiency and GREATLY increasing stability!**
@@ -12,6 +23,7 @@ works with batch files.
 
 
 # HELP FILE:
+Remember to **call** CMDS.bat if you are using it from a batch file or it will end the batch file calling it!
 ```CMDS Command Prompt Window Lister by IT Command
 
 CMDS [/S] [/P] [/L] [/W] [/V] [/Ver] [/G Num] [/K Num] [/TK String] [/TS String]
@@ -52,3 +64,6 @@ Example:
 
  Created by Lucas Elliott with IT Command  www.itcommand.net
  ```
+
+# View our Other Programs
+at [programs.itcommand.net](https://programs.itcommand.net)
